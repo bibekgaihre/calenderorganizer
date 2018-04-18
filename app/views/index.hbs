@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a  class="brand-logo" style="
+    left: 40%;
+" >Event Organizer</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down" style="
+            margin-right: 5%;
+        ">
+                <li>
+                    <a href="/signup">Signup</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="margin-top: 100px">
+        <!-- Page Content goes here -->
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="grid-example col s12 m6 l5" style="height:500px; background: #f7f7f7;" >
+                      
+                        <span class="flow-text">Login</span>
+                        <div class="row"></div>
+                        <div class="row"></div>
+                        <div class="row">
+                            <form class="col s12" action="/loginuser" method="POST">
+
+                                <div class="input-field col s12">
+                                    <input id="email" type="email" name="username" class="validate" required>
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="input-field col s12">
+                                    <input id="password" type="password" name="password" class="validate" required>
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="row"></div>
+                                <div class="row">{{message}}</div>
+                                <div class="row">
+                                      
+                                        <div class="col s3 l3"><button class="waves-effect waves-light btn-large" > Login </button></div>
+                                        <div class="col s9 l9"></div>
+                                        <!-- <div class="col s4 offset-s8 l3 offset-l9"></div> -->
+                                
+                                               
+                                     
+                                </div>
+     
+                           
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s0"></div>
+    </div>
+
+    </div>
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a href="/signup">Signup</a>
+        </li>
+    </ul>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+
+    </script>
+</body>
+
+</html>

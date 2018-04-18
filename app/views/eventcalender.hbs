@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+  
+<!--JavaScript at end of body for optimized loading-->
+   <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+{{!-- <script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+          
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+        });
+    });
+</script> --}}
+<script>
+    var events={
+        url:'/calender/eventcalender/getevent',
+        method:"GET"
+    }
+    $(document).ready(function() {
+ $('#calendar').fullCalendar({
+    editable:true,
+    header:{
+     left:'prev,next today',
+     center:'title',
+     right:'month,agendaWeek,agendaDay'
+    },
+events:  events,
+   
+    selectable:true,
+    selectHelper:true,
+    select: function(start, end, allDay)
+    {
+     var title = prompt("Enter Event Title");
+     if(title)
+     {
+     var start = moment(start).format("YYYY-MM-DD HH:mm:ss");
+     var end = moment(end).format("YYYY-MM-DD HH:mm:ss");
+      $.ajax({
+       type:"POST",
+       data:{title:title, start:start, end:end},
+       url:'/calender/eventcalender/postevent',
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        
+       
+       }
+      })
+       alert("Event Added Successfully");
+     }
+    },
+    editable:true,
+    eventResize:function(event)
+    {
+     var start = moment(event.start).format("Y-MM-DD HH:mm:ss");
+     var end = moment(event.end).format("Y-MM-DD HH:mm:ss");
+     var title = event.title;
+        var id = event.id;
+     $.ajax({
+      url:"/calender/eventcalender/updateevent",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function(){
+       calendar.fullCalendar('refetchEvents');
+       alert('Event Update');
+      }
+     })
+    },
+
+    eventDrop:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"/calender/eventcalender/updateevent",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function()
+      {
+       calendar.fullCalendar('refetchEvents');
+       alert("Event Updated");
+      }
+     });
+    },
+
+    eventClick:function(event)
+    {
+     if(confirm("Are you sure you want to remove it?"))
+     {
+      var id = event.id;
+      $.ajax({ method:'GET',
+      url:'/calender/eventcalender/deleteevent/' + $("#link").attr(id),
+
+       
+      
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        alert("Event Removed");
+       }
+      })
+     }
+    },
+
+   });
+  });
+   
+  </script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+                     <a  class="brand-logo" style="
+    left: 40%;
+" >Event Organizer</a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="small material-icons">menu</i></a>
+          
+        </div>
+       
+    </nav>
+    <ul id="slide-out" class="sidenav">
+        <li><div class="user-view">
+          <span class="black-text name">{{username}}</span>
+         <span class="black-text email">{{sessionname}}</span>
+         <br>
+
+        </div></li>
+        <li><a href="/calender/calenderoverview">Overview Calendar</a></li>
+        <li><a href="/calender/eventcalender">Event Calendar</a></li>
+        <li><div class="divider"></div></li>
+        
+        <li><a class="waves-effect" href="/logout">LogOut</a></li>
+      </ul>
+      
+            <div class="container">
+                    <!-- Page Content goes here -->
+                    <div id='calendar'></div>
+                  </div>
+    
+    
+
+    
+
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+
+    </script>
+
+    
+</body>
+
+</html>

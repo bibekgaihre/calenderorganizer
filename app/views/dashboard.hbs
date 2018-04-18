@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap-year-calendar.css" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap-year-calendar.min.css" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+              <a  class="brand-logo" style="
+    left: 40%;
+" >Event Organizer</a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="small material-icons">menu</i></a>
+          
+        </div>
+       
+    </nav>
+    <ul id="slide-out" class="sidenav">
+        <li><div class="user-view">
+          <span class="black-text name">{{username}}</span>
+         <span class="black-text email">{{sessionname}}</span>
+         <br>
+
+        </div></li>
+        <li><a href="/calender/calenderoverview">Overview Calendar</a></li>
+        <li><a href="/calender/eventcalender">Event Calendar</a></li>
+        <li><div class="divider"></div></li>
+        
+        <li><a class="waves-effect" href="/logout">LogOut</a></li>
+      </ul>
+      
+            <div class="container">
+                    <!-- Page Content goes here -->
+                    <div data-provide="calendar"></div>
+                  </div>
+    
+    
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-year-calendar.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-year-calendar.min.js"></script>
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+
+    </script>
+    <script>$('.calendar').calendar()</script>
+    
+</body>
+
+</html>
